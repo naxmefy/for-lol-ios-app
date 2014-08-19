@@ -11,7 +11,6 @@
 
 @interface RiotAPI ()
 - (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params;
-
 @end
 
 @implementation RiotAPI
@@ -81,7 +80,7 @@
 }
 
 - (NSDictionary *)getChampion:(NSString *)id {
-    return [self loadFromAPI:[NSString stringWithFormat:GET_CHAMPION_BY_ID,
+    return [self loadFromAPI:[NSString stringWithFormat:GET_CHAMPION_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
                   withParams:nil];
@@ -170,32 +169,109 @@
     return nil;
 }
 
-- (NSDictionary *)getSummonerIdsBySummonerNames:(NSString *)names, ... {
-    return nil;
+- (NSDictionary *)getSummonerIdsBySummonerNames:(NSString *)name, ... {
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, name);
+    for (NSString *arg = name; arg != nil; arg = va_arg(args, NSString*)) {
+        [names addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_IDS_BY_NAMES,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [names componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getSummonerObjectsBySummonerIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_OBJECT_BY_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getSummonerMasteriesBySummonerIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_MASTERIES_BY_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getSummonerNameBySummonerIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_NAME_BY_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getSummonerRunesBySummonerIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_RUNES_BY_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getTeamsBySummonerIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_TEAMS_BY_SUMMONER_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 - (NSDictionary *)getTeamsByTeamIds:(NSString *)id, ... {
-    return nil;
+    NSMutableArray *ids = [[NSMutableArray alloc] init];
+    va_list args;
+    va_start(args, id);
+    for (NSString *arg = id; arg != nil; arg = va_arg(args, NSString*)) {
+        [ids addObject:arg];
+    }
+    va_end(args);
+
+    return [self loadFromAPI:[NSString stringWithFormat:GET_TEAMS_BY_TEAM_IDS,
+                                                        [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
+                                                        [ids componentsJoinedByString:@","]]
+                  withParams:nil];
 }
 
 @end

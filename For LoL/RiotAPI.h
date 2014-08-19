@@ -72,7 +72,7 @@
 - (NSDictionary *)getPlayerStatsBySummonerId:(NSString *)id;
 
 // Summoner
-- (NSDictionary *)getSummonerIdsBySummonerNames:(NSString *)names, ...;
+- (NSDictionary *)getSummonerIdsBySummonerNames:(NSString *)name, ...;
 
 - (NSDictionary *)getSummonerObjectsBySummonerIds:(NSString *)id, ...;
 
