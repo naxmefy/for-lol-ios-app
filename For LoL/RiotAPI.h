@@ -15,12 +15,18 @@
 
 @property kRegions currentRegion;
 
+- (id)init;
+
 // Regions
 + (NSString *)getRegionNameForKey:(kRegions)key;
 
 + (kRegions)getRegionKeyForName:(NSString *)name;
 
 + (NSString *)getRegionURLForKey:(kRegions)key;
+
+// Map Constants
++ (NSString *)getMapNameForId:(NSInteger)id;
++ (NSString *)getMapNoteForId:(NSInteger)id;
 
 // Champions
 - (NSDictionary *)getChampions:(bool)freeToPlay;
@@ -65,6 +71,12 @@
 - (NSDictionary *)getSummonerSpellById:(NSString *)id;
 
 - (NSDictionary *)getVersionList;
+
+// Match
+- (NSDictionary *)getMatch:(NSString *)id;
+
+// Matchhistory
+- (NSDictionary *)getMatchHistory:(NSString *)id;
 
 // Stats
 - (NSDictionary *)getRankedStatsBySummonerId:(NSString *)id;
