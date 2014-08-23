@@ -33,11 +33,10 @@ NSString * const kTEAM_B = @"TEAM-4588a6a0-52c3-11e2-96c8-782bcb4ce61a";
     riot = [[RiotAPI alloc] init];
     [riot setCurrentRegion:EUW];
 
-    //NSLog(@"API: %@", riot);
-    //NSLog(@"CurrentRegion: %@", [RiotAPI getRegionNameForKey:[riot currentRegion]]);
-    //NSLog(@"%@", [riot getChampions:YES]);
-    //NSLog(@"%@", [riot getSummonerIdsBySummonerNames:kNAX_NAME, kALI_NAME, nil]);
-    //NSLog(@"%@", [riot getSummonerObjectsBySummonerIds:kNAX_ID, kALI_ID, nil]);
+    // WARNING:
+    // You can't run all tests with a developer key.
+    // There is a request limit of 10 requests every 10 seconds!
+    // And 500 request every 10 minutes!
 }
 
 - (void)tearDown {
@@ -45,24 +44,95 @@ NSString * const kTEAM_B = @"TEAM-4588a6a0-52c3-11e2-96c8-782bcb4ce61a";
     [super tearDown];
 }
 
+#pragma mark - Region Tests
 - (void)testCurrentRegion {
     XCTAssertEqual(EUW, [riot currentRegion]);
 }
 
+#pragma mark - Champion Tests
 - (void)testFeaturedChampionList {
     NSDictionary *championList = [riot getChampions:YES];
     XCTAssertEqual([championList[@"champions"] count], 10);
 }
 
+#pragma mark - Game Tests
+- (void)testGame {
+    NSDictionary *game = [riot getGame:kNAX_ID];
+    XCTAssertEqual([game[@"games"] count], 10);
+}
+
+#pragma mark - League Tests
+- (void)testLeagueBySummoners {
+    NSDictionary *leagues = [riot getLeagueBySummonerIds:kNAX_ID, kALI_ID, nil];
+    XCTAssertEqual([leagues count], 2);
+}
+
+- (void)testLeagueByTeams {
+    // FULL ID != TEAM ID ????
+    NSDictionary *leagues = [riot getLeagueByTeamIds:kTEAM_A, kTEAM_B, nil];
+    NSLog(@"%@", leagues);
+}
+
+#pragma mark - LoL Static Data Tests
+- (void)testChampions {
+
+}
+
+- (void)testItems {
+
+}
+
+- (void)testMasteries {
+
+}
+
+- (void)testRealms {
+
+}
+
+- (void)testRunes {
+
+}
+
+- (void)testSummonerSpells {
+
+}
+
+- (void)testVersions {
+
+}
+
+#pragma mark - Match Tests
+- (void)testMatch {
+
+}
+
+#pragma mark - MatchHistory Tests
+- (void)testMatchHistory {
+
+}
+
+#pragma mark - Stats Tests
+- (void)testRankedStats {
+
+}
+
+- (void)testPlayerStats {
+
+}
+
+#pragma mark - Summoner Tests
 - (void)testSummoner {
     NSDictionary *nax = [riot getSummonerObjectsBySummonerIds:kNAX_ID, nil];
     XCTAssertEqualObjects([nax[kNAX_ID][@"id"] stringValue], kNAX_ID);
 
     NSDictionary *naxMasteries = [riot getSummonerMasteriesBySummonerIds:kNAX_ID, nil];
-    NSLog(@"%@", naxMasteries);
-    NSDictionary *naxRunes = [riot getSummonerRunesBySummonerIds:kNAX_ID, nil];
-    NSLog(@"%@", naxRunes);
+    XCTAssertEqualObjects([naxMasteries[kNAX_ID][@"summonerId"] stringValue], kNAX_ID);
+    XCTAssertEqual([naxMasteries[kNAX_ID][@"pages"] count], 20);
 
+    NSDictionary *naxRunes = [riot getSummonerRunesBySummonerIds:kNAX_ID, nil];
+    XCTAssertEqualObjects([naxRunes[kNAX_ID][@"summonerId"] stringValue], kNAX_ID);
+    XCTAssertEqual([naxRunes[kNAX_ID][@"pages"] count], 2);
 }
 
 - (void)testSummonerNames {
@@ -74,6 +144,7 @@ NSString * const kTEAM_B = @"TEAM-4588a6a0-52c3-11e2-96c8-782bcb4ce61a";
     XCTAssertEqualObjects(summonerNamesByIds[kALI_ID], kALI_NAME);
 }
 
+#pragma mark - Team Tests
 - (void)testTeamsWithSummoners {
     NSDictionary *teams = [riot getTeamsBySummonerIds:kNAX_ID, kALI_ID, nil];
     XCTAssertEqual([teams count], 1);

@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "PKRevealController.h"
+#import "RiotAPI.h"
+#import "UserConfig.h"
+#import "MBProgressHUD.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) RiotAPI *riot;
+@property (strong, nonatomic) UserConfig *config;
 
 - (void)showFronView;
 - (void)showMenu;

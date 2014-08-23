@@ -24,13 +24,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Riot
+    self.riot = [[RiotAPI alloc] init];
+    
+    // UserConfig
+    self.config = [[UserConfig alloc] init];
+    
+    // View
     self.storyboard = [UIStoryboard storyboardWithName:iPhoneStoryboard
                                                          bundle: nil];
     
-    UITabBarController *summonerViewController = [self.storyboard instantiateViewControllerWithIdentifier:SummonerView];
+    UINavigationController *newsViewController = [self.storyboard instantiateViewControllerWithIdentifier:NewsView];
     self.leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:MenuView];
     
-    self.revealController = [PKRevealController revealControllerWithFrontViewController:summonerViewController
+    self.revealController = [PKRevealController revealControllerWithFrontViewController:newsViewController
                                                                      leftViewController:self.leftViewController];
     
     self.revealController.delegate = self;
