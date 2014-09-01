@@ -1,7 +1,7 @@
 language: objective-c
 
-xcode_project: For LoL.xcodeproj # path to your xcodeproj folder
-xcode_scheme: For LoLTests
+#xcode_project: For LoL.xcodeproj # path to your xcodeproj folder
+#xcode_scheme: For LoLTests
 
-#before_script: travis/before_script.sh
-#script: travis/script.sh
+before_script: travis/before_script.sh
+script: travis/script.sh
