@@ -18,8 +18,8 @@ NSString * const kCacheTime = @"time";
 }
 
 @property (strong, nonatomic) NSUserDefaults *cache;
-
 - (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params;
+- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache;
 - (NSDictionary *)getLocale:(NSDictionary *)existingParams;
 - (NSDictionary *)staticDataParams:(NSString *)fetchKey;
 
@@ -39,6 +39,9 @@ NSString * const kCacheTime = @"time";
 #pragma mark Instance Methods
 
 - (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params {
+    return [self loadFromAPI:urlPart withParams:params withCache:YES];
+}
+- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache {
     // param check
     if (params == nil) {
         params = [[NSDictionary alloc] init];

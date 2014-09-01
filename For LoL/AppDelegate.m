@@ -8,8 +8,9 @@
 
 #import "AppDelegate.h"
 #import "UIConstants.h"
+#import "PKRevealController.h"
 
-@interface AppDelegate() <PKRevealing>
+@interface AppDelegate()<PKRevealing>
 
 #pragma mark - Properties
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
 @property (nonatomic, strong, readwrite) UINavigationController *leftViewController;
+@property (nonatomic, strong, readwrite) UINavigationController *rightViewController;
 
 @end
 
@@ -36,9 +38,12 @@
     
     UINavigationController *newsViewController = [self.storyboard instantiateViewControllerWithIdentifier:NewsView];
     self.leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:MenuView];
+    self.rightViewController = [self.storyboard instantiateViewControllerWithIdentifier:FriendsView];
+    
     
     self.revealController = [PKRevealController revealControllerWithFrontViewController:newsViewController
-                                                                     leftViewController:self.leftViewController];
+                                                                     leftViewController:self.leftViewController
+                                                                    rightViewController:self.rightViewController];
     
     self.revealController.delegate = self;
     self.revealController.animationDuration = 0.25;
@@ -68,6 +73,10 @@
 
 - (void)showMenu {
     [self.revealController showViewController:self.revealController.leftViewController];
+}
+
+- (void)showFriends {
+    [self.revealController showViewController:self.revealController.rightViewController];
 }
 
 - (void)showSettingsView {

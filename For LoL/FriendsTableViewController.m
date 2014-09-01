@@ -1,23 +1,19 @@
 //
-//  ItemsTableViewController.m
+//  FriendsTableViewController.m
 //  For LoL
 //
-//  Created by Nax on 23.08.14.
+//  Created by Nax on 27.08.14.
 //  Copyright (c) 2014 Ninevillage. All rights reserved.
 //
 
-#import "ItemsTableViewController.h"
-#import "AppDelegate.h"
+#import "FriendsTableViewController.h"
+#import "FriendTableViewCell.h"
 
-@interface ItemsTableViewController (){
-    NSMutableArray * itemsList;
-}
-
-- (IBAction)showMenu:(id)sender;
+@interface FriendsTableViewController ()
 
 @end
 
-@implementation ItemsTableViewController
+@implementation FriendsTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,24 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    itemsList = [[NSMutableArray alloc] init];
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSDictionary * itemsDictionary = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] riot] getItemList];
-        NSDictionary * itemsData = [itemsDictionary objectForKey:@"data"];
-        
-        if (itemsData != nil) {
-            for(NSString * itemName in itemsData) {
-                [itemsList addObject:[itemsData objectForKey:itemName]];
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
-            [self.tableView reloadData];
-        });
-    });
-
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -74,21 +52,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [itemsList count];;
+    return 2;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    FriendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-
-    cell.textLabel.text = [[itemsList objectAtIndex:indexPath.row] objectForKey:@"name"];
-    //cell.detailTextLabel.text = [[itemsList objectAtIndex:indexPath.row] objectForKey:@"description"];
-    cell.imageView.image = [UIImage imageNamed:[[[itemsList objectAtIndex:indexPath.row] objectForKey:@"image"] objectForKey:@"full"]];
+    cell.textLabel.text = @"Friend";
+    cell.detailTextLabel.text = @"In Game?";
     return cell;
 }
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -138,9 +115,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-- (IBAction)showMenu:(id)sender {
-    [(AppDelegate*)[[UIApplication sharedApplication] delegate] showMenu];
-}
 
 @end

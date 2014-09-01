@@ -7,7 +7,7 @@
 //
 
 #import "SettingsTableViewController.h"
-#import "PKRevealController.h"
+#import "AppDelegate.h"
 
 @interface SettingsTableViewController ()
 - (IBAction)showMenu:(id)sender;
@@ -117,6 +117,6 @@
 */
 
 - (IBAction)showMenu:(id)sender {
-    [self.revealController showViewController:self.revealController.leftViewController];
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] showMenu];
 }
 @end

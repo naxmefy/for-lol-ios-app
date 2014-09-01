@@ -24,5 +24,6 @@ NSString * const SongsView = @"songs";
 NSString * const ArtsView = @"arts";
 
 NSString * const MenuView = @"menu";
+NSString * const FriendsView = @"friends";
 
 #endif

@@ -138,7 +138,7 @@
 */
 
 - (IBAction)showMenu:(id)sender {
-    [self.revealController showViewController:self.revealController.leftViewController];
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] showMenu];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PKRevealController.h"
 #import "RiotAPI.h"
 #import "UserConfig.h"
 #import "MBProgressHUD.h"
@@ -20,6 +19,7 @@
 
 - (void)showFronView;
 - (void)showMenu;
+- (void)showFriends;
 - (void)showSettingsView;
 - (void)showSummonersView;
 - (void)showNewsView;
