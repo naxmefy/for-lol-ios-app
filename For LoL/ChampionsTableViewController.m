@@ -8,10 +8,14 @@
 
 #import "ChampionsTableViewController.h"
 #import "AppDelegate.h"
+#import "ChampionGeneralDetailViewController.h"
 
 @interface ChampionsTableViewController () {
-    NSMutableArray * championsList;
+    NSArray * championsList;
 }
+
+@property (nonatomic, strong) UITabBarController *championTabBarController;
+@property (nonatomic, strong) ChampionGeneralDetailViewController *championGeneralDetailViewController;
 
 - (IBAction)showMenu:(id)sender;
 @end
@@ -30,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    championsList = [[NSMutableArray alloc] init];
+    NSMutableArray *unsortedChampionsList = [[NSMutableArray alloc] init];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSDictionary * championsDictionary = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] riot] getChampionList];
@@ -38,11 +42,14 @@
         
         if (championsData != nil) {
             for(NSString * championName in championsData) {
-                [championsList addObject:[championsData objectForKey:championName]];
+                [unsortedChampionsList addObject:[championsData objectForKey:championName]];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+            championsList = [unsortedChampionsList sortedArrayUsingDescriptors:sortDescriptors];
             [self.tableView reloadData];
         });
     });
@@ -126,7 +133,11 @@
 }
 */
 
-/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"showChampion" sender:indexPath];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -134,8 +145,14 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showChampion"]) {
+        NSIndexPath *indexPath = (NSIndexPath*)sender;
+        self.championTabBarController = (UITabBarController*)segue.destinationViewController;
+        self.championGeneralDetailViewController = [self.championTabBarController.viewControllers objectAtIndex:0];
+        self.championGeneralDetailViewController.champion = [championsList objectAtIndex:indexPath.row];
+    }
 }
-*/
+
 
 - (IBAction)showMenu:(id)sender {
     [(AppDelegate*)[[UIApplication sharedApplication] delegate] showMenu];

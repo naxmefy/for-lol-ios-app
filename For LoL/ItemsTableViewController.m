@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 
 @interface ItemsTableViewController (){
-    NSMutableArray * itemsList;
+    NSArray * itemsList;
 }
 
 - (IBAction)showMenu:(id)sender;
@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
     
-    itemsList = [[NSMutableArray alloc] init];
+    NSMutableArray *unsortedItemsList = [[NSMutableArray alloc] init];
     [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSDictionary * itemsDictionary = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] riot] getItemList];
@@ -40,11 +40,14 @@
         
         if (itemsData != nil) {
             for(NSString * itemName in itemsData) {
-                [itemsList addObject:[itemsData objectForKey:itemName]];
+                [unsortedItemsList addObject:[itemsData objectForKey:itemName]];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+            NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+            itemsList = [unsortedItemsList sortedArrayUsingDescriptors:sortDescriptors];
             [self.tableView reloadData];
         });
     });

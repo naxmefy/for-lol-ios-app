@@ -10,7 +10,11 @@
 
 static const int MAXHISTORY = 10;
 
+NSString * const kFirst = @"first_start";
+
+NSString * const kLocale = @"locale";
 NSString * const kRegion = @"region";
+NSString * const kAccount = @"account";
 
 NSString * const kFavourites = @"favourites";
 NSString * const kFavouriteName = @"name";
@@ -24,6 +28,7 @@ NSString * const kHistory = @"history";
 
 - (void)initUserDefaults;
 - (void)save;
+- (void)setHistory:(NSArray *)history;
 @end
 
 
@@ -40,11 +45,48 @@ NSString * const kHistory = @"history";
 
 - (void)initUserDefaults {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
+
+    bool firstStart = [self.userDefaults boolForKey:kFirst];
+    if (firstStart) {
+        [self resetUserConfig];
+        [self.userDefaults setBool:YES forKey:kFirst];
+    }
+}
+
+- (void)resetUserConfig {
+    [self setUserLocale:[[NSLocale preferredLanguages] objectAtIndex:0]];
+    NSMutableDictionary *userChatAccount = [[NSMutableDictionary alloc] init];
+    userChatAccount[@"username"] = @"";
+    userChatAccount[@"password"] = @"";
+    userChatAccount[@"logged_in"] = @0;
+    [self setUserChatAccount:userChatAccount];
+    [self setUserRegion:2]; // EUW
+    [self setUserFavourites:[[NSArray alloc] init]];
+    [self setHistory:[[NSArray alloc] init]];
 }
 
 - (void)save {
     [self.userDefaults synchronize];
 }
+
+- (NSString *)getUserLocale {
+    return [self.userDefaults objectForKey:kLocale];
+}
+
+- (void)setUserLocale:(NSString *)locale {
+    [self.userDefaults setObject:locale forKey:kLocale];
+    [self save];
+}
+
+- (NSDictionary *)getUserChatAccount {
+    return [self.userDefaults objectForKey:kAccount];
+}
+
+- (void)setUserChatAccount:(NSDictionary *)userChatAccount {
+    [self.userDefaults setObject:userChatAccount forKey:kAccount];
+    [self save];
+}
+
 
 - (NSInteger)getUserRegion {
     return [[self.userDefaults objectForKey:kRegion] intValue];
@@ -98,6 +140,11 @@ NSString * const kHistory = @"history";
 
 - (NSArray*)getHistory {
     return [self.userDefaults objectForKey:kHistory];
+}
+
+- (void)setHistory:(NSArray *)history {
+    [self.userDefaults setObject:history forKey:kHistory];
+    [self save];
 }
 
 - (void)updateHistory:(NSDictionary *)entry {

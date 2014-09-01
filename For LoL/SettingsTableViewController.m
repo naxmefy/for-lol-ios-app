@@ -9,7 +9,19 @@
 #import "SettingsTableViewController.h"
 #import "AppDelegate.h"
 
-@interface SettingsTableViewController ()
+typedef enum kSection : NSUInteger {
+    LOCALIZATION,
+    CHAT,
+    FORLOL
+} kSection;
+
+@interface SettingsTableViewController () {
+    UserConfig *userConfig;
+}
+@property (weak, nonatomic) IBOutlet UITableViewCell *languageCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *regionCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *accountCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *resetCell;
 - (IBAction)showMenu:(id)sender;
 
 @end
@@ -21,6 +33,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -28,6 +41,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    userConfig = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    
+    self.languageCell.textLabel.text = NSLocalizedString(@"language", @"Language of User");
+    NSLocale *locale = [NSLocale currentLocale];
+
+    NSString *language = [locale displayNameForKey:NSLocaleIdentifier
+                                             value:[locale localeIdentifier]];
+    NSLog(@"%@", language);
+    self.languageCell.detailTextLabel.text = language;
+    
+    self.regionCell.textLabel.text = NSLocalizedString(@"region", @"Region of User");
+    self.resetCell.detailTextLabel.text = [RiotAPI getRegionNameForKey:[userConfig getUserRegion]];
+
+    
+    self.accountCell.textLabel.text = NSLocalizedString(@"account", @"Account of User");
+    NSDictionary *userChatAccount = [userConfig getUserChatAccount];
+    self.accountCell.detailTextLabel.text = userChatAccount[@"username"];
+
+    self.resetCell.textLabel.text = NSLocalizedString(@"reset", @"Reset the app settings");
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -42,6 +74,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *headerText = @"";
+    
+    switch (section) {
+        case LOCALIZATION:
+            headerText = NSLocalizedString(@"localization_section_header", @"Localization settings header");
+            break;
+        case CHAT:
+            headerText = NSLocalizedString(@"chat_section_header", @"Chat settings header");
+            break;
+        case FORLOL:
+            headerText = NSLocalizedString(@"forlol_section_header", @"For LoL settings header");
+            break;
+        default:
+            break;
+    }
+    
+    return headerText;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    NSString *footerText = @"";
+    switch (section) {
+        case FORLOL:
+            footerText = NSLocalizedString(@"forlol_section_footer", @"For LoL settings footer");
+            break;
+            
+        default:
+            break;
+    }
+    
+    return footerText;
+}
+
+/*
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -55,6 +122,7 @@
     // Return the number of rows in the section.
     return 0;
 }
+*/
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

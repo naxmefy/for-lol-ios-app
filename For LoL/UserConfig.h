@@ -10,14 +10,27 @@
 
 @interface UserConfig : NSObject
 
+- (void)resetUserConfig;
+
+// Locale
+- (NSString*)getUserLocale;
+- (void)setUserLocale:(NSString*)locale;
+
+// User Region
 - (NSInteger)getUserRegion;
 - (void)setUserRegion:(NSInteger)region;
 
+// User Chat Account
+- (NSDictionary*)getUserChatAccount;
+- (void)setUserChatAccount:(NSDictionary*)userChatAccount;
+
+// Favourite Summoners
 - (NSArray*)getUserFavourites;
 - (void)setUserFavourites:(NSArray*)favourites;
 - (void)addUserFavourite:(NSDictionary*)favourite;
 - (void)removeUserFavourite:(NSString *)name fromRegion:(NSInteger)region;
 
+// Last Views
 - (NSArray*)getHistory;
 - (void)updateHistory:(NSDictionary *)entry;
 
