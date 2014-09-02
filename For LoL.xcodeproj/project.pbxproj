@@ -1535,6 +1535,8 @@
 		51C620AA1992418E00BCCD22 /* NSDictionary+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C620A91992418E00BCCD22 /* NSDictionary+UrlEncoding.m */; };
 		51C7EF9519B516C40050ACAA /* ChampionGeneralDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C7EF9419B516C40050ACAA /* ChampionGeneralDetailViewController.m */; };
 		51C7EFA419B530320050ACAA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51C7EFA319B530320050ACAA /* Localizable.strings */; };
+		51C7EFA719B53F4A0050ACAA /* LanguagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C7EFA619B53F4A0050ACAA /* LanguagesTableViewController.m */; };
+		51C7EFAA19B53F560050ACAA /* RegionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C7EFA919B53F560050ACAA /* RegionsTableViewController.m */; };
 		51CF190419889FEE00C3A6B1 /* FavouritsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF190319889FEE00C3A6B1 /* FavouritsTableViewController.m */; };
 		51CF19071988A01000C3A6B1 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF19061988A01000C3A6B1 /* MenuTableViewController.m */; };
 		51CF19141988A55C00C3A6B1 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CF19131988A55C00C3A6B1 /* image.xcassets */; };
@@ -3098,6 +3100,10 @@
 		51C7EF9319B516C40050ACAA /* ChampionGeneralDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionGeneralDetailViewController.h; sourceTree = "<group>"; };
 		51C7EF9419B516C40050ACAA /* ChampionGeneralDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionGeneralDetailViewController.m; sourceTree = "<group>"; };
 		51C7EFA319B530320050ACAA /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		51C7EFA519B53F4A0050ACAA /* LanguagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesTableViewController.h; sourceTree = "<group>"; };
+		51C7EFA619B53F4A0050ACAA /* LanguagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesTableViewController.m; sourceTree = "<group>"; };
+		51C7EFA819B53F560050ACAA /* RegionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionsTableViewController.h; sourceTree = "<group>"; };
+		51C7EFA919B53F560050ACAA /* RegionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionsTableViewController.m; sourceTree = "<group>"; };
 		51CF190219889FEE00C3A6B1 /* FavouritsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritsTableViewController.h; sourceTree = "<group>"; };
 		51CF190319889FEE00C3A6B1 /* FavouritsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritsTableViewController.m; sourceTree = "<group>"; };
 		51CF19051988A01000C3A6B1 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -4964,6 +4970,10 @@
 			children = (
 				51CF191A1988ACA200C3A6B1 /* SettingsTableViewController.h */,
 				51CF191B1988ACA200C3A6B1 /* SettingsTableViewController.m */,
+				51C7EFA519B53F4A0050ACAA /* LanguagesTableViewController.h */,
+				51C7EFA619B53F4A0050ACAA /* LanguagesTableViewController.m */,
+				51C7EFA819B53F560050ACAA /* RegionsTableViewController.h */,
+				51C7EFA919B53F560050ACAA /* RegionsTableViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -6658,11 +6668,13 @@
 				51CF19191988A74A00C3A6B1 /* DefaultNavigationViewController.m in Sources */,
 				519559B319A7F4F90026CA9F /* NewsViewController.m in Sources */,
 				51C620A51991F5A100BCCD22 /* RiotAPI.m in Sources */,
+				51C7EFA719B53F4A0050ACAA /* LanguagesTableViewController.m in Sources */,
 				519559B919A803480026CA9F /* ItemsTableViewController.m in Sources */,
 				51993DCA198553FD00A56C5C /* AppDelegate.m in Sources */,
 				51993DC6198553FD00A56C5C /* main.m in Sources */,
 				51C7EF9519B516C40050ACAA /* ChampionGeneralDetailViewController.m in Sources */,
 				519559A819A7E87F0026CA9F /* UserConfig.m in Sources */,
+				51C7EFAA19B53F560050ACAA /* RegionsTableViewController.m in Sources */,
 				519559B619A7F5660026CA9F /* ChampionsTableViewController.m in Sources */,
 				51CF190419889FEE00C3A6B1 /* FavouritsTableViewController.m in Sources */,
 				51BCC93B19ADD4C3002D8DAE /* FriendTableViewCell.m in Sources */,

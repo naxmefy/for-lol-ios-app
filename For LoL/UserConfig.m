@@ -47,14 +47,14 @@ NSString * const kHistory = @"history";
     self.userDefaults = [NSUserDefaults standardUserDefaults];
 
     bool firstStart = [self.userDefaults boolForKey:kFirst];
-    if (firstStart) {
+    if (!firstStart) {
         [self resetUserConfig];
         [self.userDefaults setBool:YES forKey:kFirst];
     }
 }
 
 - (void)resetUserConfig {
-    [self setUserLocale:[[NSLocale preferredLanguages] objectAtIndex:0]];
+    [self setUserLocale:[NSLocale preferredLanguages][0]];
     NSMutableDictionary *userChatAccount = [[NSMutableDictionary alloc] init];
     userChatAccount[@"username"] = @"";
     userChatAccount[@"password"] = @"";

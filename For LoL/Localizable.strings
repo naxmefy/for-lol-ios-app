@@ -6,14 +6,97 @@
   Copyright (c) 2014 Ninevillage. All rights reserved.
 */
 
-// Settings View
+
+"settings" = "Settings";
 "localization_section_header" = "Localization";
 "chat_section_header" = "Chat";
 "forlol_section_header" = "Reset For LoL";
 "forlol_section_footer" = "Can not be reversed!";
 
 "language" = "Language";
+"languages" = "Languages";
 "region" = "Region";
+"regions" = "Regions";
+
 "account" = "Account";
 "reset" = "Reset";
+
+"en" = "English";
+"de" = "German";
+
+"lol_chat_signin" = "LoL Chat Sign in";
+
+"username" = "Username";
+"password" = "Password";
+
+"enter_username" = "Enter username...";
+"enter_password" = "Enter password...";
+
+"sign_in" = "Sign in";
+"clear" = "Clear";
+
+"reset_info_text" = "This action can not be undone. If you are sure, press \"Reset\".";
+
+"news" = "News";
+
+"summoner" = "Summoner";
+"summoners" = "Summoners";
+
+"champion" = "Champion";
+"champions" = "Champions";
+
+"item" = "Item";
+"items" = "Items";
+
+"skin" = "Skin";
+"skins" = "Skins";
+
+"spell" = "Spell";
+"spells" = "Spells";
+
+"rune" = "Rune";
+"runes" = "Runes";
+
+"mastery" = "Mastery";
+"masteries" = "Masteries";
+
+"general" = "General";
+"overview" = "Overview";
+"live_game" = "Live Game";
+"live_games" = "Live Games";
+"game" = "Game";
+"games" = "Games";
+"history" = "History";
+"histories" = "Histories";
+"statistic" = "Statistic";
+"statistics" = "Statistics";
+"hint" = "Hint";
+"hints" = "Hints";
+"attribute" = "Attribute";
+"Attributes" = "Attributes";
+
+"friend" = "Friend";
+"friends" = "Friends";
+"online" = "Online";
+"offline" = "offline";
+"in_game" = "In Game";
+"away" = "Away";
+"champion_selection" = "Champion selection";
+
+"video" = "Video";
+"videos" = "Videos";
+"song" = "Song";
+"songs" = "Songs";
+"image" = "Image";
+"images" = "Images";
+
+"favourit" = "Favourit";
+"favourits" = "Favourits";
+
+"search" = "Search";
+
+"game_info" = "Game Info";
+
+
+
 

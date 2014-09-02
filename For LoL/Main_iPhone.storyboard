@@ -484,10 +484,10 @@
             </objects>
             <point key="canvasLocation" x="1416" y="-1998"/>
         </scene>
-        <!--Table View Controller - Sprachen-->
+        <!--Languages Table View Controller - Sprachen-->
         <scene sceneID="Yhh-ps-scy">
             <objects>
-                <tableViewController id="c3D-Ac-ueh" sceneMemberID="viewController">
+                <tableViewController id="c3D-Ac-ueh" customClass="LanguagesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZOL-1E-QoY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -513,10 +513,10 @@
             </objects>
             <point key="canvasLocation" x="1987" y="-1616"/>
         </scene>
-        <!--Table View Controller - Regionen-->
+        <!--Regions Table View Controller - Regionen-->
         <scene sceneID="lQa-Yz-TR4">
             <objects>
-                <tableViewController id="VdG-Ny-GDA" sceneMemberID="viewController">
+                <tableViewController id="VdG-Ny-GDA" customClass="RegionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QmE-5J-Ea0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
