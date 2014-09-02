@@ -7,9 +7,14 @@
 //
 
 #import "RegionsTableViewController.h"
+#import "AppDelegate.h"
 
-@interface RegionsTableViewController ()
-
+@interface RegionsTableViewController () {
+    NSArray *regions;
+    NSIndexPath *selectedRegion;
+    UserConfig *config;
+}
+    
 @end
 
 @implementation RegionsTableViewController
@@ -26,6 +31,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    NSString * currentRegion = [RiotAPI getRegionNameForKey:[config getUserRegion]];
+    
+    regions = [[NSArray alloc] initWithObjects:kRegionKeys];
+    for (int i = 0; i < [regions count]; i++) {
+        NSString * region = regions[i];
+        NSLog(@"%@", region);
+        if ([currentRegion isEqualToString:region]) {
+            selectedRegion = [NSIndexPath indexPathForItem:i inSection:0];
+        }
+    }
+    
+    [self.tableView reloadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,28 +62,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [regions count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    
+    cell.textLabel.text = [regions objectAtIndex:indexPath.row];
+    if (indexPath.row == selectedRegion.row) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -104,6 +123,25 @@
     return YES;
 }
 */
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Clicked: %d", indexPath.row);
+    NSLog(@"Selected: %d", selectedRegion.row);
+    if (indexPath.row != selectedRegion.row) {
+        UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:selectedRegion];
+        lastCell.accessoryType = UITableViewCellAccessoryNone;
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        selectedRegion = indexPath;
+        NSString * newKey = [RiotAPI getRegionNameForKey:indexPath.row];
+        NSLog(@"NEW KEY: %@", newKey);
+        [config setUserRegion:indexPath.row];
+        [[(AppDelegate*)[[UIApplication sharedApplication] delegate] riot] clearCache];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
 
 /*
 #pragma mark - Navigation

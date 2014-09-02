@@ -54,7 +54,7 @@ typedef enum kSection : NSUInteger {
     userConfig = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
     
     self.languageCell.detailTextLabel.text = [RiotAPI getLanguageNameForLanguage:[RiotAPI getLanguageForKey:[userConfig getUserLocale]]];
-    self.resetCell.detailTextLabel.text = [RiotAPI getRegionNameForKey:[userConfig getUserRegion]];
+    self.regionCell.detailTextLabel.text = [RiotAPI getRegionNameForKey:[userConfig getUserRegion]];
     NSDictionary *userChatAccount = [userConfig getUserChatAccount];
     self.accountCell.detailTextLabel.text = userChatAccount[@"username"];
 }

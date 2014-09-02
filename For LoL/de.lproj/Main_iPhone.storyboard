@@ -542,10 +542,10 @@
             </objects>
             <point key="canvasLocation" x="2501" y="-1616"/>
         </scene>
-        <!--Table View Controller - LoL Chat Anmeldung-->
+        <!--Chat Account Table View Controller - LoL Chat Anmeldung-->
         <scene sceneID="l2D-Zb-uqe">
             <objects>
-                <tableViewController id="eZx-nL-gdG" sceneMemberID="viewController">
+                <tableViewController id="eZx-nL-gdG" customClass="ChatAccountTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="gSd-e4-zhD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -567,11 +567,14 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Benutzername..." minimumFontSize="17" id="eQ9-gq-iHi">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Benutzername..." minimumFontSize="17" clearButtonMode="whileEditing" id="eQ9-gq-iHi">
                                                     <rect key="frame" x="168" y="7" width="132" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="eZx-nL-gdG" id="BL0-LN-QTQ"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -590,11 +593,14 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passwort..." minimumFontSize="17" id="FdI-Z4-y3R">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passwort..." minimumFontSize="17" clearButtonMode="whileEditing" id="FdI-Z4-y3R">
                                                     <rect key="frame" x="168" y="7" width="132" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="eZx-nL-gdG" id="eEk-SJ-hjT"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -612,6 +618,9 @@
                                                     <state key="normal" title="Leeren">
                                                         <color key="titleColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="clear:" destination="eZx-nL-gdG" eventType="touchUpInside" id="HVS-zK-Mvz"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yYf-Kk-moM">
                                                     <rect key="frame" x="170" y="0.0" width="150" height="43"/>
@@ -619,6 +628,9 @@
                                                     <state key="normal" title="Anmelden">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="signIn:" destination="eZx-nL-gdG" eventType="touchUpInside" id="WQu-4v-eq6"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -632,6 +644,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="LoL Chat Anmeldung" id="6IN-wX-DQ9"/>
+                    <connections>
+                        <outlet property="passwordField" destination="FdI-Z4-y3R" id="BoZ-Ig-Hm1"/>
+                        <outlet property="usernameField" destination="eQ9-gq-iHi" id="3Zh-SG-dHH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO2-UA-0XU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

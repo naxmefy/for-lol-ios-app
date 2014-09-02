@@ -1537,6 +1537,7 @@
 		51C7EFAB19B54B7D0050ACAA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51C7EFAD19B54B7D0050ACAA /* Localizable.strings */; };
 		51C7EFB119B54BF10050ACAA /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51C7EFB319B54BF10050ACAA /* Main_iPhone.storyboard */; };
 		51C7EFB519B54C060050ACAA /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51C7EFB719B54C060050ACAA /* Main_iPad.storyboard */; };
+		51C7EFBB19B566900050ACAA /* ChatAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C7EFBA19B566900050ACAA /* ChatAccountTableViewController.m */; };
 		51CF190419889FEE00C3A6B1 /* FavouritsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF190319889FEE00C3A6B1 /* FavouritsTableViewController.m */; };
 		51CF19071988A01000C3A6B1 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF19061988A01000C3A6B1 /* MenuTableViewController.m */; };
 		51CF19141988A55C00C3A6B1 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CF19131988A55C00C3A6B1 /* image.xcassets */; };
@@ -3109,6 +3110,8 @@
 		51C7EFB419B54BFA0050ACAA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		51C7EFB619B54C060050ACAA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		51C7EFB819B54C0B0050ACAA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		51C7EFB919B566900050ACAA /* ChatAccountTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAccountTableViewController.h; sourceTree = "<group>"; };
+		51C7EFBA19B566900050ACAA /* ChatAccountTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAccountTableViewController.m; sourceTree = "<group>"; };
 		51CF190219889FEE00C3A6B1 /* FavouritsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritsTableViewController.h; sourceTree = "<group>"; };
 		51CF190319889FEE00C3A6B1 /* FavouritsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritsTableViewController.m; sourceTree = "<group>"; };
 		51CF19051988A01000C3A6B1 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -4979,6 +4982,8 @@
 				51C7EFA619B53F4A0050ACAA /* LanguagesTableViewController.m */,
 				51C7EFA819B53F560050ACAA /* RegionsTableViewController.h */,
 				51C7EFA919B53F560050ACAA /* RegionsTableViewController.m */,
+				51C7EFB919B566900050ACAA /* ChatAccountTableViewController.h */,
+				51C7EFBA19B566900050ACAA /* ChatAccountTableViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -6681,6 +6686,7 @@
 				51C7EF9519B516C40050ACAA /* ChampionGeneralDetailViewController.m in Sources */,
 				519559A819A7E87F0026CA9F /* UserConfig.m in Sources */,
 				51C7EFAA19B53F560050ACAA /* RegionsTableViewController.m in Sources */,
+				51C7EFBB19B566900050ACAA /* ChatAccountTableViewController.m in Sources */,
 				519559B619A7F5660026CA9F /* ChampionsTableViewController.m in Sources */,
 				51CF190419889FEE00C3A6B1 /* FavouritsTableViewController.m in Sources */,
 				51BCC93B19ADD4C3002D8DAE /* FriendTableViewCell.m in Sources */,

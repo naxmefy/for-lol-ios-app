@@ -10,7 +10,10 @@
 #import "UIConstants.h"
 #import "PKRevealController.h"
 
-@interface AppDelegate()<PKRevealing>
+@interface AppDelegate()<PKRevealing> {
+    bool menuOpen;
+    bool friendsOpen;
+}
 
 #pragma mark - Properties
 
@@ -48,6 +51,9 @@
     self.revealController.delegate = self;
     self.revealController.animationDuration = 0.25;
     
+    menuOpen = false;
+    friendsOpen = false;
+    
     self.window.rootViewController = self.revealController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -72,11 +78,23 @@
 }
 
 - (void)showMenu {
-    [self.revealController showViewController:self.revealController.leftViewController];
+    if (menuOpen) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        [self.revealController showViewController:self.revealController.leftViewController];
+    }
+    
+    menuOpen |= menuOpen;
 }
 
 - (void)showFriends {
-    [self.revealController showViewController:self.revealController.rightViewController];
+    if (friendsOpen) {
+        [self.revealController showViewController:self.revealController.frontViewController];
+    } else {
+        [self.revealController showViewController:self.revealController.rightViewController];
+    }
+    
+    friendsOpen |= friendsOpen;
 }
 
 - (void)showSettingsView {

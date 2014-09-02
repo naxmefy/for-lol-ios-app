@@ -36,17 +36,17 @@
     [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSDictionary * itemsDictionary = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] riot] getItemList];
-        NSDictionary * itemsData = [itemsDictionary objectForKey:@"data"];
+        NSDictionary * itemsData = itemsDictionary[@"data"];
         
         if (itemsData != nil) {
             for(NSString * itemName in itemsData) {
-                [unsortedItemsList addObject:[itemsData objectForKey:itemName]];
+                [unsortedItemsList addObject:itemsData[itemName]];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.tableView animated:YES];
             NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+            NSArray *sortDescriptors = @[sortByName];
             itemsList = [unsortedItemsList sortedArrayUsingDescriptors:sortDescriptors];
             [self.tableView reloadData];
         });
@@ -87,9 +87,9 @@
     
     // Configure the cell...
 
-    cell.textLabel.text = [[itemsList objectAtIndex:indexPath.row] objectForKey:@"name"];
-    //cell.detailTextLabel.text = [[itemsList objectAtIndex:indexPath.row] objectForKey:@"description"];
-    cell.imageView.image = [UIImage imageNamed:[[[itemsList objectAtIndex:indexPath.row] objectForKey:@"image"] objectForKey:@"full"]];
+    cell.textLabel.text = [itemsList[(NSUInteger) indexPath.row] objectForKey:@"name"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ Gold", [[itemsList[(NSUInteger) indexPath.row] objectForKey:@"gold"] objectForKey:@"base"]];
+    cell.imageView.image = [UIImage imageNamed:[[itemsList[(NSUInteger) indexPath.row] objectForKey:@"image"] objectForKey:@"full"]];
     return cell;
 }
 

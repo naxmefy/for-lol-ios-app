@@ -30,6 +30,7 @@ NSString * const kHistory = @"history";
 
 - (void)initUserDefaults;
 - (void)save;
+- (NSString *)findPreferredLanguage;
 - (void)setHistory:(NSArray *)history;
 @end
 
@@ -56,7 +57,7 @@ NSString * const kHistory = @"history";
 }
 
 - (void)resetUserConfig {
-    [self setUserLocale:[RiotAPI getLanguageKeyForLanguage:EN_US]];
+    [self setUserLocale:[self findPreferredLanguage]];
     NSMutableDictionary *userChatAccount = [[NSMutableDictionary alloc] init];
     userChatAccount[@"username"] = @"";
     userChatAccount[@"password"] = @"";
@@ -69,6 +70,24 @@ NSString * const kHistory = @"history";
 
 - (void)save {
     [self.userDefaults synchronize];
+}
+
+- (NSString *)findPreferredLanguage {
+    NSString *foundLang = nil;
+    NSArray *languages = [[NSArray alloc] initWithObjects:kLanguageKeys];
+    NSString *preferredLang = [[[NSLocale preferredLanguages] objectAtIndex:0] substringToIndex:2];
+    for (NSString *lang in languages) {
+        if ([lang rangeOfString:preferredLang].location != NSNotFound ) {
+            foundLang = lang;
+            break;
+        }
+    }
+
+    if (foundLang == nil) {
+        foundLang = [RiotAPI getLanguageKeyForLanguage:EN_US];
+    }
+
+    return foundLang;
 }
 
 - (NSString *)getUserLocale {

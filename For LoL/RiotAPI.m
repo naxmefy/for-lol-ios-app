@@ -47,6 +47,12 @@ NSString * const kCacheTime = @"time";
     if (params == nil) {
         params = [[NSDictionary alloc] init];
     }
+    
+    // Update currentRegion
+    if(config == nil) {
+        config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    }
+    currentRegion = [config getUserRegion];
 
     // Region Selection
     NSString *urlWithRegion = [NSString stringWithFormat:@"%@%@", [RiotAPI getRegionURLForKey:currentRegion], urlPart];
