@@ -1,0 +1,102 @@
+/* 
+  Localizable.strings
+  For LoL
+
+  Created by Nax on 02.09.14.
+  Copyright (c) 2014 Ninevillage. All rights reserved.
+*/
+
+
+"settings" = "Einstellungen";
+"localization_section_header" = "Lokalisierung";
+"chat_section_header" = "Chat";
+"forlol_section_header" = "For LoL zurücksetzen";
+"forlol_section_footer" = "Kann nicht Rückgängig gemacht werden!";
+
+"language" = "Sprache";
+"languages" = "Sprachen";
+"region" = "Region";
+"regions" = "Regionen";
+
+"account" = "Account";
+"reset" = "Zurücksetzen";
+
+"en" = "Englisch";
+"de" = "Deutsch";
+
+"lol_chat_signin" = "LoL Chat Anmeldung";
+
+"username" = "Benutzername";
+"password" = "Passwort";
+
+"enter_username" = "Benutzernamen eingeben...";
+"enter_password" = "Passwort eingeben...";
+
+"sign_in" = "Anmelden";
+"clear" = "Leeren";
+
+"reset_info_text" = "Diese Aktion kann nicht Rückgängig gemacht werden. Wenn Sie sich sicher sind, drücken Sie auf \"Zurücksetzen\".";
+
+"news" = "Neuigkeiten";
+
+"summoner" = "Beschwörer";
+"summoners" = "Beschwörer";
+
+"champion" = "Champion";
+"champions" = "Champions";
+
+"item" = "Gegenstand";
+"items" = "Gegenstände";
+
+"skin" = "Skin";
+"skins" = "Skins";
+
+"spell" = "Zauber";
+"spells" = "Zauber";
+
+"rune" = "Rune";
+"runes" = "Runen";
+
+"mastery" = "Mastery";
+"masteries" = "Masteries";
+
+"general" = "Allgemein";
+"overview" = "Übersicht";
+"live_game" = "Live Spiel";
+"live_games" = "Live Spiele";
+"game" = "Spiel";
+"games" = "Spiele";
+"history" = "Verlauf";
+"histories" = "Verläufe";
+"statistic" = "Statistik";
+"statistics" = "Statistiken";
+"hint" = "Hinweis";
+"hints" = "Hinweise";
+"attribute" = "Attribute";
+"Attributes" = "Attribute";
+
+"friend" = "Freund";
+"friends" = "Freunde";
+"online" = "Online";
+"offline" = "Offline";
+"in_game" = "Im Spiel";
+"away" = "Abwesend";
+"champion_selection" = "Championauswahl";
+
+"video" = "Video";
+"videos" = "Videos";
+"song" = "Lied";
+"songs" = "Lieder";
+"image" = "Bild";
+"images" = "Bilder";
+
+"favourit" = "Favorit";
+"favourits" = "Favoriten";
+
+"search" = "Suchen";
+
+"game_info" = "Spiel Info";
+
+
+
+

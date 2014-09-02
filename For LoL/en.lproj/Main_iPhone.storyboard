@@ -691,7 +691,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Lokalisierung" id="3ff-Qs-dN1">
+                            <tableViewSection headerTitle="LoL Lokalisierung" id="3ff-Qs-dN1">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="12Z-1a-Tef" detailTextLabel="bwb-PY-wKw" style="IBUITableViewCellStyleValue1" id="1Ev-Ci-cy1">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
@@ -749,7 +749,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Chat" id="rrk-ik-cel">
+                            <tableViewSection headerTitle="LoL Chat" id="rrk-ik-cel">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="IQN-Ri-9ke" detailTextLabel="FKp-x0-BRJ" style="IBUITableViewCellStyleValue1" id="bta-Hv-JPW">
                                         <rect key="frame" x="0.0" y="255" width="320" height="44"/>
@@ -780,7 +780,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="For LoL" footerTitle="Kann nicht Rückgängig gemacht werden!" id="HbG-Ey-lL9">
+                            <tableViewSection headerTitle="For LoL zurücksetzen" footerTitle="Kann nicht Rückgängig gemacht werden!" id="HbG-Ey-lL9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="oD2-ef-V7Z" style="IBUITableViewCellStyleDefault" id="2k3-Ed-Xnv">
                                         <rect key="frame" x="0.0" y="347" width="320" height="44"/>
@@ -1064,7 +1064,7 @@
             <objects>
                 <tabBarController definesPresentationContext="YES" id="OtH-ud-Gxw" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Summoner" id="WEw-eM-Cbg"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="PcO-db-rZA">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

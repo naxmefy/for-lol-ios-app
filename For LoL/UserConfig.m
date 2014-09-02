@@ -7,10 +7,12 @@
 //
 
 #import "UserConfig.h"
+#import "RiotAPI.h"
 
 static const int MAXHISTORY = 10;
 
 NSString * const kFirst = @"first_start";
+NSString * const kAppleLanguages = @"AppleLanguages";
 
 NSString * const kLocale = @"locale";
 NSString * const kRegion = @"region";
@@ -54,7 +56,7 @@ NSString * const kHistory = @"history";
 }
 
 - (void)resetUserConfig {
-    [self setUserLocale:[NSLocale preferredLanguages][0]];
+    [self setUserLocale:[RiotAPI getLanguageKeyForLanguage:EN_US]];
     NSMutableDictionary *userChatAccount = [[NSMutableDictionary alloc] init];
     userChatAccount[@"username"] = @"";
     userChatAccount[@"password"] = @"";
@@ -110,8 +112,8 @@ NSString * const kHistory = @"history";
     NSMutableArray * favourites = [[NSMutableArray alloc] initWithArray:[self.userDefaults objectForKey:kFavourites]];
     bool exist = NO;
     for (NSDictionary *fav in favourites) {
-        if ([[fav objectForKey:kFavouriteName] isEqualToString:[favourite objectForKey:kFavouriteName]]) {
-            if ([[fav objectForKey:kFavouriteRegion] intValue] == [[favourite objectForKey:kFavouriteRegion] intValue]) {
+        if ([fav[kFavouriteName] isEqualToString:favourite[kFavouriteName]]) {
+            if ([fav[kFavouriteRegion] intValue] == [favourite[kFavouriteRegion] intValue]) {
                 exist = YES;
                 break;
             }
@@ -127,8 +129,8 @@ NSString * const kHistory = @"history";
 - (void)removeUserFavourite:(NSString *)name fromRegion:(NSInteger)region {
     NSMutableArray * favourites = [[NSMutableArray alloc] initWithArray:[self.userDefaults objectForKey:kFavourites]];
     for (NSDictionary *fav in favourites) {
-        if ([[fav objectForKey:kFavouriteName] isEqualToString:name]) {
-            if ([[fav objectForKey:kFavouriteRegion] intValue] == region) {
+        if ([fav[kFavouriteName] isEqualToString:name]) {
+            if ([fav[kFavouriteRegion] intValue] == region) {
                 [favourites removeObject:fav];
                 [self setUserFavourites:favourites];
                 break;

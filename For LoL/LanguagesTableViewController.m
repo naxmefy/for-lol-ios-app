@@ -12,6 +12,7 @@
 @interface LanguagesTableViewController () {
     NSArray * languages;
     NSIndexPath * selectedLanguage;
+    UserConfig *config;
 }
 
 @end
@@ -30,27 +31,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //DIRTY!!!!!!
-    self.title = ;
-
-    NSMutableDictionary *en = [[NSMutableDictionary alloc] init];
-    en[@"id"] = @"en";
-    en[@"name"] = @"English";
-
-    NSMutableDictionary *de = [[NSMutableDictionary alloc] init];
-    de[@"id"] = @"de";
-    de[@"name"] = @"Deutsch";
-
-    languages = @[en, de];
-
-    UserConfig *config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
-    NSString * userLocale = [config getUserLocale];
-    NSLog(@"%@", userLocale);
-    if ([userLocale isEqualToString:@"en"]) {
-        selectedLanguage = [NSIndexPath indexPathForItem:0 inSection:0];
-    } else {
-        selectedLanguage = [NSIndexPath indexPathForItem:1 inSection:0];;
+    config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    NSString * currentLangKey = [config getUserLocale];
+    
+    languages = [[NSArray alloc] initWithObjects:kLanguageNames];
+    for (int i = 0; i < [languages count]; i++) {
+        NSString * key = [RiotAPI getLanguageKeyForLanguage:[RiotAPI getLanguageForName:languages[i]]];
+        NSLog(@"%@", key);
+        if ([currentLangKey isEqualToString:key]) {
+            selectedLanguage = [NSIndexPath indexPathForItem:i inSection:0];
+        }
     }
     
     [self.tableView reloadData];
@@ -88,7 +78,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = languages[(NSUInteger) indexPath.row][@"name"];
+    cell.textLabel.text = languages[(NSUInteger) indexPath.row];
     if (indexPath.row == selectedLanguage.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
@@ -135,7 +125,8 @@
 */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"Clicked: %d", indexPath.row);
+    NSLog(@"Selected: %d", selectedLanguage.row);
     if (indexPath.row != selectedLanguage.row) {
         UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:selectedLanguage];
         lastCell.accessoryType = UITableViewCellAccessoryNone;
@@ -144,6 +135,11 @@
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
         selectedLanguage = indexPath;
+        NSString * newKey = [RiotAPI getLanguageKeyForLanguage:indexPath.row];
+        NSLog(@"NEW KEY: %@", newKey);
+        [config setUserLocale:newKey];
+        [[(AppDelegate*)[[UIApplication sharedApplication] delegate] riot] clearCache];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

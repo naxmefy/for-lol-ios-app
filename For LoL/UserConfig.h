@@ -14,7 +14,8 @@
 
 // Locale
 - (NSString*)getUserLocale;
-- (void)setUserLocale:(NSString*)locale;
+- (void)setUserLocale:(NSString *)locale;
+- (void)changeUserLocale:(NSString *)locale;
 
 // User Region
 - (NSInteger)getUserRegion;

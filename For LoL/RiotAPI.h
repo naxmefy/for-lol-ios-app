@@ -19,10 +19,16 @@
 
 // Regions
 + (NSString *)getRegionNameForKey:(kRegions)key;
-
 + (kRegions)getRegionKeyForName:(NSString *)name;
-
 + (NSString *)getRegionURLForKey:(kRegions)key;
+
+// Languages
++ (NSString *)getLanguageNameForLanguage:(kLanguage)lang;
++ (kLanguage)getLanguageForName:(NSString *)name;
++ (NSString *)getLanguageKeyForLanguage:(kLanguage)lang;
++ (kLanguage)getLanguageForKey:(NSString *)key;
+
+- (void)clearCache;
 
 // Map Constants
 + (NSString *)getMapNameForId:(NSInteger)id;

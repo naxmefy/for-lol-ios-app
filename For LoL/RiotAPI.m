@@ -8,13 +8,14 @@
 
 #import "RiotAPI.h"
 #import "NSDictionary+UrlEncoding.h"
+#import "AppDelegate.h"
 
 NSString * const kCache = @"cache";
 NSString * const kCacheContent = @"content";
 NSString * const kCacheTime = @"time";
 
 @interface RiotAPI () {
-
+    UserConfig *config;
 }
 
 @property (strong, nonatomic) NSUserDefaults *cache;
@@ -80,9 +81,11 @@ NSString * const kCacheTime = @"time";
     if (existingParams != nil) {
         [params addEntriesFromDictionary:existingParams];
     }
-
-    NSLog(@"localeIdentifier: %@", [[NSLocale currentLocale] localeIdentifier]);
-    [params setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
+    if(config == nil) {
+        config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    }
+    NSLog(@"localeIdentifier: %@", [config getUserLocale]);
+    [params setObject:[config getUserLocale] forKey:@"locale"];
 
     return params;
 }
@@ -146,6 +149,27 @@ NSString * const kCacheTime = @"time";
     return [NSString stringWithFormat:kRegionURL, [name lowercaseString]];
 }
 
++ (NSString *)getLanguageNameForLanguage:(kLanguage)lang {
+    NSArray *names = [[NSArray alloc] initWithObjects:kLanguageNames];
+    return [names objectAtIndex:lang];
+}
++ (kLanguage)getLanguageForName:(NSString *)name {
+    NSArray *names = [[NSArray alloc] initWithObjects:kLanguageNames];
+    NSUInteger n = [names indexOfObject:name];
+    if (n < 1) n = EN_US;
+    return (kLanguage) n;
+}
++ (NSString *)getLanguageKeyForLanguage:(kLanguage)lang {
+    NSArray *keys = [[NSArray alloc] initWithObjects:kLanguageKeys];
+    return [keys objectAtIndex:lang];
+}
++ (kLanguage)getLanguageForKey:(NSString *)key {
+    NSArray *keys = [[NSArray alloc] initWithObjects:kLanguageKeys];
+    NSUInteger n = [keys indexOfObject:key];
+    if (n < 1) n = EN_US;
+    return (kLanguage) n;
+}
+
 + (NSString *)getMapNameForId:(NSInteger)id {
     NSArray *mapIds = [[NSArray alloc] initWithObjects:kMapIds];
     NSInteger index = [mapIds indexOfObject:[NSNumber numberWithInt:id]];
@@ -169,6 +193,10 @@ NSString * const kCacheTime = @"time";
     }
     
     return self;
+}
+
+- (void)clearCache {
+    [self.cache setObject:nil forKey:kCache];
 }
 
 - (NSDictionary *)getChampions:(bool)freeToPlay {

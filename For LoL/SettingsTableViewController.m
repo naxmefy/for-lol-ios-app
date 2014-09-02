@@ -41,25 +41,6 @@ typedef enum kSection : NSUInteger {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    userConfig = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
-    
-    self.languageCell.textLabel.text = NSLocalizedString(@"language", @"Language of User");
-    NSLocale *locale = [NSLocale currentLocale];
-
-    NSString *language = [locale displayNameForKey:NSLocaleIdentifier
-                                             value:[locale localeIdentifier]];
-    NSLog(@"%@", language);
-    self.languageCell.detailTextLabel.text = language;
-    
-    self.regionCell.textLabel.text = NSLocalizedString(@"region", @"Region of User");
-    self.resetCell.detailTextLabel.text = [RiotAPI getRegionNameForKey:[userConfig getUserRegion]];
-
-    
-    self.accountCell.textLabel.text = NSLocalizedString(@"account", @"Account of User");
-    NSDictionary *userChatAccount = [userConfig getUserChatAccount];
-    self.accountCell.detailTextLabel.text = userChatAccount[@"username"];
-
-    self.resetCell.textLabel.text = NSLocalizedString(@"reset", @"Reset the app settings");
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -68,44 +49,20 @@ typedef enum kSection : NSUInteger {
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    userConfig = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    
+    self.languageCell.detailTextLabel.text = [RiotAPI getLanguageNameForLanguage:[RiotAPI getLanguageForKey:[userConfig getUserLocale]]];
+    self.resetCell.detailTextLabel.text = [RiotAPI getRegionNameForKey:[userConfig getUserRegion]];
+    NSDictionary *userChatAccount = [userConfig getUserChatAccount];
+    self.accountCell.detailTextLabel.text = userChatAccount[@"username"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerText = @"";
-    
-    switch (section) {
-        case LOCALIZATION:
-            headerText = NSLocalizedString(@"localization_section_header", @"Localization settings header");
-            break;
-        case CHAT:
-            headerText = NSLocalizedString(@"chat_section_header", @"Chat settings header");
-            break;
-        case FORLOL:
-            headerText = NSLocalizedString(@"forlol_section_header", @"For LoL settings header");
-            break;
-        default:
-            break;
-    }
-    
-    return headerText;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    NSString *footerText = @"";
-    switch (section) {
-        case FORLOL:
-            footerText = NSLocalizedString(@"forlol_section_footer", @"For LoL settings footer");
-            break;
-            
-        default:
-            break;
-    }
-    
-    return footerText;
 }
 
 /*

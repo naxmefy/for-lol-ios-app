@@ -47,6 +47,31 @@ typedef enum kRegions : NSUInteger {
 #define kRegionURL @"%@.api.pvp.net"
 #define kGlobalRegion @"global.api.pvp.net"
 
+// LANGUAGES
+#pragma mark - API REGIONS
+typedef enum kLanguage : NSUInteger {
+    EN_US,
+    DE_DE,
+    ES_ES,
+    FR_FR,
+    IT_IT,
+    PL_PL,
+    EL_GR,
+    RO_RO,
+    PT_BR,
+    TR_TR,
+    TH_TH,
+    VN_VN,
+    ID_ID,
+    RU_RU,
+    KO_KR,
+    ZH_CN,
+    ZH_TW
+} kLanguage;
+#define kLanguageKeys @"en_US", @"de_DE", @"es_ES", @"fr_FR", @"it_IT", @"pl_PL", @"el_GR", @"ro_RO", @"pt_BR", @"tr_TR", @"th_TH", @"vn_VN", @"id_ID", @"ru_RU", @"ko_KR", @"zh_CN", @"zh_TW", nil
+#define kLanguageNames @"English", @"German", @"Spanish", @"French", @"Italian", @"Polish", @"Greek", @"Romanian", @"Portuguese", @"Turkish", @"Thai", @"Vietnamese", @"Indonesian", @"Russian", @"Korean", @"Chinese (China)", @"Chinese (Taiwan)", nil
+
+
 //URLS
 #pragma mark - API URLS
 #pragma mark Champion
