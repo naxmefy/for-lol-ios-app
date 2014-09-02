@@ -34,7 +34,7 @@
     
     // UserConfig
     self.config = [[UserConfig alloc] init];
-    
+
     // View
     self.storyboard = [UIStoryboard storyboardWithName:iPhoneStoryboard
                                                          bundle: nil];
@@ -136,6 +136,79 @@
     [self.revealController setFrontViewController:[self.storyboard instantiateViewControllerWithIdentifier:ArtsView]];
     [self showFronView];
 }
+- (void)connectToChat {
+    NSDictionary *userChatAccount = [self.config getUserChatAccount];
+    kRegions region = [self.config getUserRegion];
+    LoLServerRegion serverRegion = LoLServerRegionBrazil;
+    
+    if (userChatAccount != nil
+        && (userChatAccount[@"username"] != nil && [userChatAccount[@"username"] length] > 0)
+        && (userChatAccount[@"password"] != nil && [userChatAccount[@"username"] length] > 0)) {
+        switch (region) {
+            case BR:
+                serverRegion = LoLServerRegionBrazil;
+                break;
+            case EUNE:
+                serverRegion = LoLServerRegionNordicEast;
+                break;
+            case EUW:
+                serverRegion = LoLServerRegionEuropeWest;
+                break;
+            case KR:
+                serverRegion = LoLServerRegionKorean;
+                break;
+            case LAN:
+                serverRegion = LoLServerRegionLatinNorth;
+                break;
+            case LAS:
+                serverRegion = LoLServerRegionLatinSouth;
+                break;
+            case NA:
+                serverRegion = LoLServerRegionNordicEast;
+                break;
+            case OCE:
+                serverRegion = LoLServerRegionOceanic;
+                break;
+            case RU:
+                serverRegion = LoLServerRegionRussia;
+                break;
+            case TR:
+                serverRegion = LoLServerRegionTurkey;
+                break;
+            default:
+                break;
+        }
+        self.folklore = [[Folklore alloc] initWithServerRegion:serverRegion withConsoleDebugOutput:NO];
+        [self.folklore setDelegate:self];
+        [self.folklore connectWithUsername:userChatAccount[@"username"]
+                              password:userChatAccount[@"password"]];
+    }
+}
+
+- (void)disconnectFromChat {
+    [self.folklore disconnect];
+}
+
+
+#pragma mark - FolkloreDelegate Protocol
+
+- (void)folkloreDidConnect:(Folklore *)folklore {
+    NSLog(@"Connection successful");
+}
+
+- (void)folkloreConnection:(Folklore *)folklore didFailedWithError:(NSError *)error {
+    NSLog(@"Connection failed with error: %@", error);
+}
+
+- (void)folklore:(Folklore *)folklore didUpdatedBuddyList:(NSArray *)buddies {
+    for (FolkloreBuddy *buddy in buddies) {
+        NSLog(@"%@ is %@", buddy.name, (buddy.isOnline ? @"online" : @"offline"));
+    }
+}
+
+- (void)folklore:(Folklore *)folklore didReceivedMessage:(NSString *)message fromBuddy:(FolkloreBuddy *)buddy {
+    NSLog(@"[%@] %@", buddy.name, message);
+}
 
 #pragma mark - APP Delegate
 
@@ -143,6 +216,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    NSLog(@"WRA");
+    [self disconnectFromChat];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -159,6 +234,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSLog(@"DBA");
+    [self connectToChat];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

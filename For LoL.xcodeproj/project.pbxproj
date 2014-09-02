@@ -4818,10 +4818,6 @@
 			children = (
 				1A925B8D934F5072570F5B30 /* helper */,
 				51C7EF8F19B5153C0050ACAA /* config */,
-				51BCC93119ADD0D3002D8DAE /* Authentication */,
-				51BCC93219ADD0D3002D8DAE /* Categories */,
-				51BCC93319ADD0D3002D8DAE /* Core */,
-				51BCC93419ADD0D3002D8DAE /* Utilities */,
 				51CF191D1988B06400C3A6B1 /* models */,
 				51CF19161988A72E00C3A6B1 /* navigation */,
 				51845FDB19885CFF005C3C38 /* views */,
@@ -4868,34 +4864,6 @@
 				51993DDB198553FD00A56C5C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		51BCC93119ADD0D3002D8DAE /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
-		51BCC93219ADD0D3002D8DAE /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		51BCC93319ADD0D3002D8DAE /* Core */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		51BCC93419ADD0D3002D8DAE /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		51BCC93819ADD3F7002D8DAE /* cells */ = {

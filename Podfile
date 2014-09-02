@@ -9,7 +9,8 @@ target "For LoL" do
   
   pod 'PKRevealController'
   pod 'MBProgressHUD', '~> 0.9'
-  pod 'XMPPFramework', '~> 3.6'
+  # pod 'XMPPFramework', '~> 3.6'
+  pod 'Folklore'
 
   #pod 'SWRevealViewController', '~> 2.3'
   #pod 'SWRevealTableViewCell', '~> 0.3'

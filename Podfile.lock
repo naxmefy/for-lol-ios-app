@@ -6,6 +6,8 @@ PODS:
   - CocoaLumberjack/Core (1.6.5.1)
   - CocoaLumberjack/Extensions (1.6.5.1):
     - CocoaLumberjack/Core
+  - Folklore (0.4.0):
+    - XMPPFramework (~> 3.6.4)
   - MBProgressHUD (0.9)
   - PKRevealController (2.0.6)
   - XMPPFramework (3.6.4):
@@ -150,13 +152,14 @@ PODS:
     - XMPPFramework/Core
 
 DEPENDENCIES:
+  - Folklore
   - MBProgressHUD (~> 0.9)
   - PKRevealController
-  - XMPPFramework (~> 3.6)
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 45bdbbc1c0a5ed0640ff4c42af325ba43a2f099a
   CocoaLumberjack: baf4a09a3bcbdfea3363556a90104e026d3504e2
+  Folklore: 3937682c2f5aff1b630ab077b17fb3b40314c298
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   PKRevealController: 4f175a432ad868c806dce1ebb3fd8a35d228bdb5
   XMPPFramework: 5a8555132822ebb3e11d2bac0258e62754315bc5

@@ -116,7 +116,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == self.summonerCell) {
         [appDelegate showSummonersView];
@@ -159,7 +159,7 @@
 */
 
 - (IBAction)showSettings:(id)sender {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate showSettingsView];
 }
 @end

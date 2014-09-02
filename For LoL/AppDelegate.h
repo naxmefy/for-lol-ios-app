@@ -10,12 +10,14 @@
 #import "RiotAPI.h"
 #import "UserConfig.h"
 #import "MBProgressHUD.h"
+#import <Folklore/Folklore.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FolkloreDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) RiotAPI *riot;
 @property (strong, nonatomic) UserConfig *config;
+@property (strong, nonatomic) Folklore *folklore;
 
 - (void)showFronView;
 - (void)showMenu;
@@ -28,4 +30,7 @@
 - (void)showVideosView;
 - (void)showSongsView;
 - (void)showArtsView;
+
+- (void)connectToChat;
+- (void)disconnectFromChat;
 @end

@@ -37,6 +37,10 @@ NSString * const kTEAM_B = @"TEAM-4588a6a0-52c3-11e2-96c8-782bcb4ce61a";
     // You can't run all tests with a developer key.
     // There is a request limit of 10 requests every 10 seconds!
     // And 500 request every 10 minutes!
+
+    // That maybe a reason to wait between each API Test
+    NSLog(@"One Second Sleep");
+    [NSThread sleepForTimeInterval:1.0f];
 }
 
 - (void)tearDown {
@@ -75,11 +79,13 @@ NSString * const kTEAM_B = @"TEAM-4588a6a0-52c3-11e2-96c8-782bcb4ce61a";
 
 #pragma mark - LoL Static Data Tests
 - (void)testChampions {
-
+    NSDictionary *champion = [riot getChampionList];
+    XCTAssertNotNil(champion);
 }
 
 - (void)testItems {
-
+    NSDictionary *items = [riot getItemList];
+    XCTAssertNotNil(items);
 }
 
 - (void)testMasteries {

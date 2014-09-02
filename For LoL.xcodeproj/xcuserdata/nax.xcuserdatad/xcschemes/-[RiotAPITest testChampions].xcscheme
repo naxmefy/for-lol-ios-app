@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    version = "1.3">
-   <BuildAction
-      parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+   <BuildAction>
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForTesting = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "51993DD0198553FD00A56C5C"
@@ -22,13 +17,9 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
+         <TestableReference>
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "51993DD0198553FD00A56C5C"
@@ -41,9 +32,6 @@
                   Identifier = "For_LoLTests">
                </Test>
                <Test
-                  Identifier = "RiotAPITest/testChampions">
-               </Test>
-               <Test
                   Identifier = "RiotAPITest/testCurrentRegion">
                </Test>
                <Test
@@ -54,6 +42,9 @@
                </Test>
                <Test
                   Identifier = "RiotAPITest/testItems">
+               </Test>
+               <Test
+                  Identifier = "RiotAPITest/testLeagueBySummoners">
                </Test>
                <Test
                   Identifier = "RiotAPITest/testLeagueByTeams">
@@ -102,29 +93,6 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
-      ignoresPersistentStateOnLaunch = "NO"
-      debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
-      <AdditionalOptions>
-      </AdditionalOptions>
+      useCustomWorkingDirectory = "NO">
    </LaunchAction>
-   <ProfileAction
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
-      useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
-      debugDocumentVersioning = "YES">
-   </ProfileAction>
-   <AnalyzeAction
-      buildConfiguration = "Debug">
-   </AnalyzeAction>
-   <ArchiveAction
-      buildConfiguration = "Release"
-      revealArchiveInOrganizer = "YES">
-   </ArchiveAction>
 </Scheme>

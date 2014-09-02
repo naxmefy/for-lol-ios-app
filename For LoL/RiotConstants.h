@@ -11,10 +11,25 @@
 
 // API KEY
 #pragma mark - API KEY
-#define API_KEY @"fa1b74d8-5a16-4ac1-918d-99e790eb4957" // this is only a development key - dont use this in production version....please dont use my app :P
+#define API_KEY @"70ef4194-d24b-4f70-b30a-d75e4fb9f210" // this is only a development key - dont use this in production version....please dont use my app :P
 
 #pragma mark - API URL Structure
 #define API_URL @"https://%@?api_key=%@&%@"
+
+// CHAT
+#define CHAT_JABBER @"%@@pvp.net"
+#define CHAT_PASS   @"AIR_%@"
+#define CHAT_BR     @"chat.br.lol.riotgames.com"
+#define CHAT_EUNE   @"chat.eun1.lol.riotgames.com"
+#define CHAT_EUW    @"chat.euw1.lol.riotgames.com"
+#define CHAT_KR     @"chat.kr.lol.riotgames.com"
+#define CHAT_LAN    @"chat.la1.lol.riotgames.com"
+#define CHAT_LAS    @"chat.la2.lol.riotgames.com"
+#define CHAT_NA     @"chat.na1.lol.riotgames.com"
+#define CHAT_OCE    @"chat.oc1.lol.riotgames.com"
+#define CHAT_RU     @"chat.ru.lol.riotgames.com"
+#define CHAT_TR     @"chat.tr.lol.riotgames.com"
+
 
 // API VERSIONS
 #pragma mark - API VERSIONS

@@ -10,23 +10,30 @@
 #import "NSDictionary+UrlEncoding.h"
 #import "AppDelegate.h"
 
-NSString * const kCache = @"cache";
-NSString * const kCacheContent = @"content";
-NSString * const kCacheTime = @"time";
+NSString *const kCache = @"cache";
+NSString *const kCacheContent = @"content";
+NSString *const kCacheTime = @"time";
 
 @interface RiotAPI () {
     UserConfig *config;
 }
 
-@property (strong, nonatomic) NSUserDefaults *cache;
+@property(strong, nonatomic) NSUserDefaults *cache;
+
 - (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params;
-- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache;
+
+- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache asGlobal:(bool)asGlobal;
+
 - (NSDictionary *)getLocale:(NSDictionary *)existingParams;
+
 - (NSDictionary *)staticDataParams:(NSString *)fetchKey;
 
-- (NSDictionary*)getCache;
+- (NSDictionary *)getCache;
+
 - (NSDictionary *)getFromCache:(NSString *)key;
+
 - (void)putContent:(NSDictionary *)content intoCache:(NSString *)key;
+
 - (void)setCacheEntry:(NSDictionary *)cacheEntry forKey:key;
 @end
 
@@ -40,31 +47,35 @@ NSString * const kCacheTime = @"time";
 #pragma mark Instance Methods
 
 - (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params {
-    return [self loadFromAPI:urlPart withParams:params withCache:YES];
+    return [self loadFromAPI:urlPart withParams:params withCache:YES asGlobal:NO];
 }
-- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache {
+
+- (NSDictionary *)loadFromAPI:(NSString *)urlPart withParams:(NSDictionary *)params withCache:(bool)withCache asGlobal:(bool)asGlobal {
     // param check
     if (params == nil) {
         params = [[NSDictionary alloc] init];
     }
-    
+
     // Update currentRegion
-    if(config == nil) {
-        config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    if (config == nil) {
+        config = [(AppDelegate *) [[UIApplication sharedApplication] delegate] config];
     }
-    currentRegion = [config getUserRegion];
+    currentRegion = (kRegions) [config getUserRegion];
 
     // Region Selection
     NSString *urlWithRegion = [NSString stringWithFormat:@"%@%@", [RiotAPI getRegionURLForKey:currentRegion], urlPart];
+    if (asGlobal) {
+        urlWithRegion = [NSString stringWithFormat:@"%@%@", kGlobalRegion, urlPart];
+    }
 
     // URL
     NSString *apiurl = API_URL;
     NSString *urlString = [NSString stringWithFormat:apiurl, urlWithRegion, API_KEY, [params urlEncodedString]];
     NSLog(@"URL: %@", urlString);
-    
+
     // Check cache
-    NSDictionary * cacheEntry = [self getFromCache:urlString];
-    if(cacheEntry != nil) {
+    NSDictionary *cacheEntry = [self getFromCache:urlString];
+    if (cacheEntry != nil) {
         return [cacheEntry objectForKey:kCacheContent];
     }
 
@@ -76,19 +87,19 @@ NSString * const kCacheTime = @"time";
             JSONObjectWithData:jsonData
                        options:kNilOptions
                          error:&error];
-    
+
     [self putContent:json intoCache:urlString];
-    
+
     return json;
 }
 
 - (NSDictionary *)getLocale:(NSDictionary *)existingParams {
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (existingParams != nil) {
         [params addEntriesFromDictionary:existingParams];
     }
-    if(config == nil) {
-        config = [(AppDelegate*)[[UIApplication sharedApplication] delegate] config];
+    if (config == nil) {
+        config = [(AppDelegate *) [[UIApplication sharedApplication] delegate] config];
     }
     NSLog(@"localeIdentifier: %@", [config getUserLocale]);
     [params setObject:[config getUserLocale] forKey:@"locale"];
@@ -97,17 +108,17 @@ NSString * const kCacheTime = @"time";
 }
 
 - (NSDictionary *)staticDataParams:(NSString *)fetchKey {
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"all" forKey:fetchKey];
     return [self getLocale:params];
 }
 
-- (NSDictionary*)getCache {
+- (NSDictionary *)getCache {
     return [self.cache objectForKey:kCache];
 }
 
 - (NSDictionary *)getFromCache:(NSString *)key {
-    NSDictionary * cacheEntry = [[self getCache] objectForKey:key];
+    NSDictionary *cacheEntry = [[self getCache] objectForKey:key];
     NSDate *now = [[NSDate alloc] init];
     NSDate *cacheTime = [cacheEntry objectForKey:kCacheTime];
     if (fabs([now timeIntervalSinceDate:cacheTime]) < 3600) {
@@ -118,24 +129,65 @@ NSString * const kCacheTime = @"time";
 
 - (void)putContent:(NSDictionary *)content intoCache:(NSString *)key {
     if ([self getFromCache:key] == nil) {
-        NSMutableDictionary * cacheEntry = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *cacheEntry = [[NSMutableDictionary alloc] init];
         [cacheEntry setObject:content forKey:kCacheContent];
         [cacheEntry setObject:[[NSDate alloc] init] forKey:kCacheTime];
-        
+
         [self setCacheEntry:cacheEntry forKey:key];
     }
 }
 
 - (void)setCacheEntry:(NSDictionary *)cacheEntry forKey:key {
-    NSMutableDictionary * cacheEntries = [[NSMutableDictionary alloc] initWithDictionary:[self getCache]];
+    NSMutableDictionary *cacheEntries = [[NSMutableDictionary alloc] initWithDictionary:[self getCache]];
     [cacheEntries setObject:cacheEntry forKey:key];
-    
+
     [self.cache setObject:cacheEntries forKey:kCache];
     [self.cache synchronize];
 }
 
 #pragma mark - Public Methods
 #pragma mark Class Methods
+
++ (NSString *)getChatHost {
+    // GET currentRegion
+    NSInteger region = [[(AppDelegate *) [[UIApplication sharedApplication] delegate] config] getUserRegion];
+    NSString *host = nil;
+    switch (region) {
+        case BR:
+            host = CHAT_BR;
+            break;
+        case EUNE:
+            host = CHAT_EUNE;
+            break;
+        case EUW:
+            host = CHAT_EUW;
+            break;
+        case KR:
+            host = CHAT_KR;
+            break;
+        case LAN:
+            host = CHAT_LAN;
+            break;
+        case LAS:
+            host = CHAT_LAS;
+            break;
+        case NA:
+            host = CHAT_NA;
+            break;
+        case OCE:
+            host = CHAT_OCE;
+            break;
+        case RU:
+            host = CHAT_RU;
+            break;
+        case TR:
+            host = CHAT_TR;
+            break;
+
+    }
+
+    return host;
+}
 
 + (NSString *)getRegionNameForKey:(kRegions)key {
     NSArray *keys = [[NSArray alloc] initWithObjects:kRegionKeys];
@@ -151,7 +203,7 @@ NSString * const kCacheTime = @"time";
 
 + (NSString *)getRegionURLForKey:(kRegions)key {
     NSArray *keys = [[NSArray alloc] initWithObjects:kRegionKeys];
-    NSString *name = [keys objectAtIndex:key];
+    NSString *name = keys[key];
     return [NSString stringWithFormat:kRegionURL, [name lowercaseString]];
 }
 
@@ -159,16 +211,19 @@ NSString * const kCacheTime = @"time";
     NSArray *names = [[NSArray alloc] initWithObjects:kLanguageNames];
     return [names objectAtIndex:lang];
 }
+
 + (kLanguage)getLanguageForName:(NSString *)name {
     NSArray *names = [[NSArray alloc] initWithObjects:kLanguageNames];
     NSUInteger n = [names indexOfObject:name];
     if (n < 1) n = EN_US;
     return (kLanguage) n;
 }
+
 + (NSString *)getLanguageKeyForLanguage:(kLanguage)lang {
     NSArray *keys = [[NSArray alloc] initWithObjects:kLanguageKeys];
-    return [keys objectAtIndex:lang];
+    return keys[lang];
 }
+
 + (kLanguage)getLanguageForKey:(NSString *)key {
     NSArray *keys = [[NSArray alloc] initWithObjects:kLanguageKeys];
     NSUInteger n = [keys indexOfObject:key];
@@ -178,26 +233,26 @@ NSString * const kCacheTime = @"time";
 
 + (NSString *)getMapNameForId:(NSInteger)id {
     NSArray *mapIds = [[NSArray alloc] initWithObjects:kMapIds];
-    NSInteger index = [mapIds indexOfObject:[NSNumber numberWithInt:id]];
+    NSInteger index = [mapIds indexOfObject:@(id)];
     NSArray *mapNames = [[NSArray alloc] initWithObjects:kMapNames];
-    return [mapNames objectAtIndex:index];
+    return mapNames[(NSUInteger) index];
 }
 
 + (NSString *)getMapNoteForId:(NSInteger)id {
     NSArray *mapIds = [[NSArray alloc] initWithObjects:kMapIds];
-    NSInteger index = [mapIds indexOfObject:[NSNumber numberWithInt:id]];
+    NSInteger index = [mapIds indexOfObject:@(id)];
     NSArray *mapNotes = [[NSArray alloc] initWithObjects:kMapNotes];
-    return [mapNotes objectAtIndex:index];
+    return mapNotes[(NSUInteger) index];
 }
 
 #pragma mark Instance Methods
 
 - (id)init {
     self = [super init];
-    if(self != nil) {
+    if (self != nil) {
         self.cache = [NSUserDefaults standardUserDefaults];
     }
-    
+
     return self;
 }
 
@@ -298,78 +353,78 @@ NSString * const kCacheTime = @"time";
 - (NSDictionary *)getChampionList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_CHAMPION_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:[self staticDataParams:@"champData"]];
+                  withParams:[self staticDataParams:@"champData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getChampionById:(NSString *)id {
     return [self loadFromAPI:[NSString stringWithFormat:GET_CHAMPION_BY_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
-                  withParams:[self staticDataParams:@"champData"]];
+                  withParams:[self staticDataParams:@"champData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getItemList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_ITEM_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:[self staticDataParams:@"itemListData"]];
+                  withParams:[self staticDataParams:@"itemListData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getItemById:(NSString *)id {
     return [self loadFromAPI:[NSString stringWithFormat:GET_ITEM_BY_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
-                  withParams:[self staticDataParams:@"itemData"]];
+                  withParams:[self staticDataParams:@"itemData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getMasteryList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_MASTERY_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:[self staticDataParams:@"masteryListData"]];
+                  withParams:[self staticDataParams:@"masteryListData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getMasteryById:(NSString *)id {
     return [self loadFromAPI:[NSString stringWithFormat:GET_MASTERY_BY_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
-                  withParams:[self staticDataParams:@"masteryData"]];
+                  withParams:[self staticDataParams:@"masteryData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getRealmList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_REALM_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:nil];
+                  withParams:nil withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getRuneList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_RUNE_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:[self staticDataParams:@"runeListData"]];
+                  withParams:[self staticDataParams:@"runeListData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getRuneById:(NSString *)id {
     return [self loadFromAPI:[NSString stringWithFormat:GET_RUNE_BY_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
-                  withParams:[self staticDataParams:@"runeData"]];
+                  withParams:[self staticDataParams:@"runeData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getSummonerSpellList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_SPELL_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:[self staticDataParams:@"spellData"]];
+                  withParams:[self staticDataParams:@"spellData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getSummonerSpellById:(NSString *)id {
     return [self loadFromAPI:[NSString stringWithFormat:GET_SUMMONER_SPELL_BY_ID,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString],
                                                         id]
-                  withParams:[self staticDataParams:@"spellData"]];
+                  withParams:[self staticDataParams:@"spellData"] withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getVersionList {
     return [self loadFromAPI:[NSString stringWithFormat:GET_VERSION_LIST,
                                                         [[RiotAPI getRegionNameForKey:currentRegion] lowercaseString]]
-                  withParams:nil];
+                  withParams:nil withCache:YES asGlobal:YES];
 }
 
 - (NSDictionary *)getMatch:(NSString *)id {

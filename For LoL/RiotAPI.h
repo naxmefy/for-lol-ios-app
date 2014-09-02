@@ -17,6 +17,9 @@
 
 - (id)init;
 
+// Chat
++ (NSString*)getChatHost;
+
 // Regions
 + (NSString *)getRegionNameForKey:(kRegions)key;
 + (kRegions)getRegionKeyForName:(NSString *)name;

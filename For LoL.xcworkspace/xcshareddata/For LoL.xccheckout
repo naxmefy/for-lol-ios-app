@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>876EA70D-66FC-4C00-B964-C0A2C867F039</string>
+	<key>IDESourceControlProjectName</key>
+	<string>For LoL</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>753EDAF0-30B0-40C6-B37B-12040F7D31F3</key>
+		<string>https://github.com/Naxmeify/for-lol-ios-app.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>For LoL.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>753EDAF0-30B0-40C6-B37B-12040F7D31F3</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Naxmeify/for-lol-ios-app.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>753EDAF0-30B0-40C6-B37B-12040F7D31F3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>753EDAF0-30B0-40C6-B37B-12040F7D31F3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>for-lol-ios-app</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -7,14 +7,18 @@
 //
 
 #import "ChatAccountTableViewController.h"
+#import "AppDelegate.h"
 
-@interface ChatAccountTableViewController ()
+@interface ChatAccountTableViewController () {
+    UserConfig *config;
+    NSDictionary *userChatAccount;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 - (IBAction)signIn:(id)sender;
 - (IBAction)clear:(id)sender;
-
+- (void)setChatAccount;
 @end
 
 @implementation ChatAccountTableViewController
@@ -34,12 +38,22 @@
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignResponder)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
-    
+    NSLog(@"0");
+    config = [(AppDelegate *)[[UIApplication sharedApplication] delegate] config];
+    userChatAccount = [[NSMutableDictionary alloc] initWithDictionary:[config getUserChatAccount]];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.usernameField.text = userChatAccount[@"username"];
+    self.passwordField.text = userChatAccount[@"password"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,6 +65,8 @@
 - (IBAction)signIn:(id)sender {
     NSLog(@"Sign In");
     [self resignResponder];
+    [self setChatAccount];
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] connectToChat];
 }
 
 - (IBAction)clear:(id)sender {
@@ -58,6 +74,13 @@
     [self resignResponder];
     [self.usernameField setText:@""];
     [self.passwordField setText:@""];
+    [self setChatAccount];
+}
+
+- (void)setChatAccount {
+    [userChatAccount setValue:self.usernameField.text forKey:@"username"];
+    [userChatAccount setValue:self.passwordField.text forKey:@"password"];
+    [config setUserChatAccount:userChatAccount];
 }
 
 - (void)resignResponder {
