@@ -9,8 +9,20 @@
 #import "FriendsTableViewController.h"
 #import "FriendTableViewCell.h"
 
-@interface FriendsTableViewController ()
+#import <Folklore/Folklore.h>
 
+@interface FriendsTableViewController () {
+    NSMutableArray *onlineFriends;
+    NSMutableArray *offlineFriends;
+    bool onlyOnline;
+}
+
+@property (nonatomic, strong) NSArray * friends;
+
+- (void)configCell:(UITableViewCell* )cell forFriend:(FolkloreBuddy*)friend;
+
+// Notifiers
+- (void)populateFriends:(NSNotification *)notification;
 @end
 
 @implementation FriendsTableViewController
@@ -27,6 +39,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    onlyOnline = YES;
+    [self updateFriendStates];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -45,14 +59,37 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    int count = 0;
+    if (onlyOnline) {
+        count = 1;
+    } else {
+        count = 2;
+    }
+    NSLog(@"Section Count: %d", count);
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 2;
+    int count = 0;
+
+    if (section == 0) {
+        count = [onlineFriends count];
+    } else {
+        count = [offlineFriends count];
+    }
+
+    NSLog(@"Friends: %d", count);
+    return count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Online";
+    } else {
+        return @"Offline";
+    }
 }
 
 
@@ -61,9 +98,22 @@
     FriendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = @"Friend";
-    cell.detailTextLabel.text = @"In Game?";
+    FolkloreBuddy *friend;
+
+    if (indexPath.section == 0) {
+        friend = [onlineFriends objectAtIndex:indexPath.row];
+    } else {
+        friend = [offlineFriends objectAtIndex:indexPath.row];
+    }
+
+    
+    [self configCell:cell forFriend:friend];
     return cell;
+}
+
+- (void)configCell:(UITableViewCell *)cell forFriend:(FolkloreBuddy*)friend {
+    cell.textLabel.text = friend.name;
+    cell.detailTextLabel.text = friend.buddyInformations.gameStatus;
 }
 
 
@@ -115,5 +165,34 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - public methods
+- (void)registerObserver {
+    // NotificationObserver
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateFriends:) name:@"populateFriends" object:nil];
+}
+
+#pragma mark - Observer methods
+- (void)populateFriends:(NSNotification *)notification {
+    NSLog(@"Update Friends");
+    self.friends = [[NSArray alloc] initWithArray:[[notification userInfo] objectForKey:@"friends"]];
+    [self updateFriendStates];
+    [self.tableView reloadData];
+}
+
+#pragma mark - private Methods
+- (void)updateFriendStates {
+    onlineFriends = [[NSMutableArray alloc] init];
+    offlineFriends = [[NSMutableArray alloc] init];
+    
+    for (FolkloreBuddy *friend in self.friends) {
+        NSLog(@"%@ - %@", friend.name, friend.isOnline?@"on":@"off");
+        if (friend.isOnline) {
+            [onlineFriends addObject:friend];
+        } else {
+            [offlineFriends addObject:friend];
+        }
+    }
+}
 
 @end

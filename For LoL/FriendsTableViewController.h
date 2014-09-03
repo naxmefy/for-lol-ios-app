@@ -10,4 +10,6 @@
 
 @interface FriendsTableViewController : UITableViewController
 
+- (void)registerObserver;
+
 @end

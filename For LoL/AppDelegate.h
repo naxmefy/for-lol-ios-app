@@ -31,6 +31,8 @@
 - (void)showSongsView;
 - (void)showArtsView;
 
+- (void)updateUserRegion;
+
 - (void)connectToChat;
 - (void)disconnectFromChat;
 @end

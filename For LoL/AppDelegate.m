@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "UIConstants.h"
 #import "PKRevealController.h"
+#import "FriendsTableViewController.h"
 
 @interface AppDelegate()<PKRevealing> {
     bool menuOpen;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong, readwrite) PKRevealController *revealController;
 @property (nonatomic, strong, readwrite) UINavigationController *leftViewController;
 @property (nonatomic, strong, readwrite) UINavigationController *rightViewController;
+@property (nonatomic, strong) FriendsTableViewController *friendsTableViewController;
 
 @end
 
@@ -29,11 +31,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Riot
-    self.riot = [[RiotAPI alloc] init];
-    
     // UserConfig
     self.config = [[UserConfig alloc] init];
+    
+    // Riot
+    self.riot = [[RiotAPI alloc] init];
+    [self updateUserRegion];
 
     // View
     self.storyboard = [UIStoryboard storyboardWithName:iPhoneStoryboard
@@ -42,7 +45,8 @@
     UINavigationController *newsViewController = [self.storyboard instantiateViewControllerWithIdentifier:NewsView];
     self.leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:MenuView];
     self.rightViewController = [self.storyboard instantiateViewControllerWithIdentifier:FriendsView];
-    
+    self.friendsTableViewController = [self.rightViewController.viewControllers objectAtIndex:0];
+    [self.friendsTableViewController registerObserver];
     
     self.revealController = [PKRevealController revealControllerWithFrontViewController:newsViewController
                                                                      leftViewController:self.leftViewController
@@ -63,13 +67,13 @@
 
 - (void)revealController:(PKRevealController *)revealController didChangeToState:(PKRevealControllerState)state
 {
-    NSLog(@"%@ (%d)", NSStringFromSelector(_cmd), (int)state);
+//    NSLog(@"%@ (%d)", NSStringFromSelector(_cmd), (int)state);
 }
 
 - (void)revealController:(PKRevealController *)revealController willChangeToState:(PKRevealControllerState)next
 {
-    PKRevealControllerState current = revealController.state;
-    NSLog(@"%@ (%d -> %d)", NSStringFromSelector(_cmd), (int)current, (int)next);
+//    PKRevealControllerState current = revealController.state;
+//    NSLog(@"%@ (%d -> %d)", NSStringFromSelector(_cmd), (int)current, (int)next);
 }
 
 #pragma mark - Views
@@ -136,6 +140,11 @@
     [self.revealController setFrontViewController:[self.storyboard instantiateViewControllerWithIdentifier:ArtsView]];
     [self showFronView];
 }
+
+- (void)updateUserRegion {
+    [self.riot setCurrentRegion:[self.config getUserRegion]];
+}
+
 - (void)connectToChat {
     NSDictionary *userChatAccount = [self.config getUserChatAccount];
     kRegions region = [self.config getUserRegion];
@@ -208,6 +217,11 @@
 
 - (void)folklore:(Folklore *)folklore didReceivedMessage:(NSString *)message fromBuddy:(FolkloreBuddy *)buddy {
     NSLog(@"[%@] %@", buddy.name, message);
+}
+
+- (void)folklore:(Folklore *)folklore didPopulateBuddyList:(NSArray *)buddyList {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:buddyList forKey:@"friends"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"populateFriends" object:nil userInfo:userInfo];
 }
 
 #pragma mark - APP Delegate

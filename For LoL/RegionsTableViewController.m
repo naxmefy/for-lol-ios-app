@@ -139,6 +139,7 @@
         NSLog(@"NEW KEY: %@", newKey);
         [config setUserRegion:indexPath.row];
         [[(AppDelegate*)[[UIApplication sharedApplication] delegate] riot] clearCache];
+        [(AppDelegate*)[[UIApplication sharedApplication] delegate] updateUserRegion];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
